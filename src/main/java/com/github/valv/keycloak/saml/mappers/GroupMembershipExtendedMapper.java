@@ -10,6 +10,7 @@ import org.keycloak.models.utils.ModelToRepresentation;
 import org.keycloak.protocol.saml.SamlProtocol;
 import org.keycloak.protocol.saml.mappers.*;
 import org.keycloak.provider.ProviderConfigProperty;
+import org.jboss.logging.Logger;  // Keycloak's logging framework
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class GroupMembershipExtendedMapper extends AbstractSAMLProtocolMapper im
     public static final String SINGLE_GROUP_ATTRIBUTE = "single";
 
     private static final List<ProviderConfigProperty> configProperties = new ArrayList<ProviderConfigProperty>();
+    private static final Logger logs = Logger.getLogger(GroupMembershipExtendedMapper.class);
 
     static {
         ProviderConfigProperty property;
@@ -128,6 +130,7 @@ public class GroupMembershipExtendedMapper extends AbstractSAMLProtocolMapper im
         boolean fullPath = useFullPath(mappingModel);
         boolean patternStrip = stripPattern(mappingModel);
         String patternMatch = mappingModel.getConfig().get("pattern.match");
+        logs.debugf("Filtering groups by pattern: %s (stripping = %b)", patternMatch, patternStrip);
 
         final AtomicReference<AttributeType> singleAttributeType = new AtomicReference<>(null);
 
@@ -139,7 +142,8 @@ public class GroupMembershipExtendedMapper extends AbstractSAMLProtocolMapper im
                 groupName = group.getName();
             }
 
-            if (patternMatch != null && !patternMatch.isEmpty() && !groupName.matches(patternMatch)) {
+            if (patternMatch != null && !patternMatch.isEmpty() && !groupName.contains(patternMatch)) {
+                logs.debugf("Skipping %s as non-matching", groupName);
                 return;
             }
 
@@ -157,6 +161,7 @@ public class GroupMembershipExtendedMapper extends AbstractSAMLProtocolMapper im
 
             if (patternStrip) {
                 groupName = groupName.replaceAll(patternMatch, "");
+                logs.debugf("Stripped group name: %s", groupName);
             }
 
             attributeType.addAttributeValue(groupName);

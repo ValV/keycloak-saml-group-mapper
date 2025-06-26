@@ -4,13 +4,6 @@
   <artifactId>keycloak-saml-group-mapper</artifactId>
   <version>1.0.0</version>
 
-  <repositories>
-    <repository>
-      <id>keycloak-public</id>
-      <url>https://maven.repo.keycloak.org/releases</url>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>org.keycloak</groupId>
@@ -18,13 +11,6 @@
       <version>25.0.1</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.keycloak</groupId>
-      <artifactId>keycloak-saml-server-spi</artifactId>
-      <version>25.0.1</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>

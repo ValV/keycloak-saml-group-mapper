@@ -1,2 +1,2 @@
-com.github.valv.keycloak.saml.mappers.GroupMembershipMapperExtended
+com.github.valv.keycloak.saml.mappers.GroupMembershipExtendedMapper
 

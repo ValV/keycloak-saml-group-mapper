@@ -4,11 +4,36 @@
   <artifactId>keycloak-saml-group-mapper</artifactId>
   <version>1.0.0</version>
 
+  <properties>
+    <keycloak.version>25.0.1</keycloak.version>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <dependencies>
-    <dependency>
+    <!-- <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-core</artifactId>
+      <version>${keycloak.version}</version>
+      <scope>provided</scope>
+    </dependency> -->
+    <!-- <dependency>
       <groupId>org.keycloak</groupId>
       <artifactId>keycloak-server-spi</artifactId>
-      <version>25.0.1</version>
+      <version>${keycloak.version}</version>
+      <scope>provided</scope>
+    </dependency> -->
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-saml-core-public</artifactId>
+      <version>${keycloak.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-services</artifactId>
+      <version>${keycloak.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -26,4 +51,3 @@
     </plugins>
   </build>
 </project>
-
